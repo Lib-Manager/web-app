@@ -17,13 +17,15 @@ jobs:
         language: [ java ] # Ajoutez d'autres langages si nécessaire
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v2
+        uses: actions/checkout@v3
 
       - name: Build with Maven
         run: mvn clean install
 
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: ${{ matrix.language }}
+
       - name: Perform CodeQL analysis
-        uses: github/codeql-action/analyze@v2
+        uses: github/codeql-action/analyze@v3
